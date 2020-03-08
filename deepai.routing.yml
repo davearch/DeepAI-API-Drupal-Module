@@ -1,0 +1,9 @@
+deepai.admin_settings_form:
+  path: '/admin/config/development/deepai/adminsettings'
+  defaults:
+    _form: Drupal\deepai\Form\AdminSettingsForm
+    _title: 'admin_settings_form'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE

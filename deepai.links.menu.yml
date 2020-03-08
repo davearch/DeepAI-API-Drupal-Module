@@ -1,0 +1,6 @@
+deepai.admin_settings_form:
+  title: 'DeepAI Admin Settings'
+  route_name: deepai.admin_settings_form
+  description: 'Manage DeepAI Admin Settings'
+  parent: system.admin_config_development
+  weight: 99

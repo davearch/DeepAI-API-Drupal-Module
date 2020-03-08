@@ -1,0 +1,5 @@
+services:
+  deepai.deepai_client:
+    class: \Drupal\deepai\Generator\DeepaiClient
+    arguments:
+      - '@http_client_factory'

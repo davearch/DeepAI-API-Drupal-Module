@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains deepai.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function deepai_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the deepai module.
+    case 'help.page.deepai':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module that leverages the deepai API to generate articles with NLP') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function deepai_theme() {
+  return [
+    'deepai' => [
+      'render element' => 'children',
+    ],
+  ];
+}

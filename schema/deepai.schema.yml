@@ -1,0 +1,10 @@
+deepai.AdminSettings:
+  type: config_object
+  label: 'DeepAI Module Settings'
+  mapping:
+    deepai_api_key:
+      type: string
+      label: 'DeepAI API Key'
+    deepai_base_text:
+      type: text
+      label: 'Base Text for Generation'

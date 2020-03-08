@@ -1,0 +1,7 @@
+name: 'deepai'
+type: module
+description: 'Module that leverages the deepai API to generate articles with NLP'
+core: 8.x
+package: 'Artificial Intelligence'
+dependencies:
+  - node
