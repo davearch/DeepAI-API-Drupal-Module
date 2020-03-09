@@ -3,3 +3,4 @@ services:
     class: \Drupal\deepai\Generator\DeepaiClient
     arguments:
       - '@http_client_factory'
+      - '@config.factory'

@@ -1,4 +1,4 @@
-deepai.AdminSettings:
+deepai.adminsettings:
   type: config_object
   label: 'DeepAI Module Settings'
   mapping:

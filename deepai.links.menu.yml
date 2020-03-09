@@ -4,3 +4,10 @@ deepai.admin_settings_form:
   description: 'Manage DeepAI Admin Settings'
   parent: system.admin_config_development
   weight: 99
+
+deepai.generate_node_form:
+  title: 'DeepAI Text Generator'
+  route_name: deepai.generate_node_form
+  description: 'Generate Nodes with the DeepAI API'
+  parent: system.admin_structure
+  weight: 99

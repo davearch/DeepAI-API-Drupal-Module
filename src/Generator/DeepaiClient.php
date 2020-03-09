@@ -2,6 +2,8 @@
 
 namespace Drupal\deepai\Generator;
 
+use Drupal\Component\Render\FormattableMarkup;
+use GuzzleHttp\Exception\GuzzleException;
 use Drupal\Component\Serialization\Json;
 
 class DeepaiClient
@@ -12,29 +14,58 @@ class DeepaiClient
     private $httpClient;
 
     /**
+     * @var \Drupal\Core\Config\ImmutableConfig;
+     */
+    private $config;
+
+    /**
      * DeepAIClient Constructor
      * @param $http_client_factory \Drupal\Core\Http\ClientFactory
      */
-    public function __construct($http_client_factory)
+    public function __construct($http_client_factory, $configFactory)
     {
-        // todo: inject the settings from config object
+        $this->config = $configFactory->get('deepai.adminsettings');
         $this->httpClient = $http_client_factory->fromOptions([
             'base_uri' => 'https://api.deepai.org',
-            'text' => 'This is my text string. I hope it works!',
-            'api-key' => 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K',
         ]);
     }
 
     /**
      * Generate text
-     * 
-     * @param $text string
-     * allow caller to override settings config base text if they want.
      */
-    public function generate(string $text = NULL)
+    public function generate()
     {
-        // $text ? $text : $config->get('text');
-        $request = $this->httpClient->request('GET', '/api/textgenerator', []);
-        return Json::decode($response->getBody());
+        $text = $this->config->get('deepai_base_text');
+        $api_key = $this->config->get('deepai_api_key');
+        
+        try {
+            $res = $this->httpClient->request('POST', '/api/text-generator', [
+                'headers' => [
+                    'Api-Key' => $api_key,
+                ],
+                'form_params' => [
+                    'text' => $text,
+                ]
+            ]);
+            return Json::decode($res->getBody());
+        }
+        catch (GuzzleException $error) {
+            $response = $error->getResponse();
+            $response_info = $response->getBody()->getContents();
+            $message = new FormattableMarkup(
+                'API connection Error: <pre>@response</pre>',
+                ['@response' => print_r($response_info, TRUE)]
+            );
+            watchdog_exception('Remote API Connection', $error, $message);
+            return $error;
+        }
+        catch (\Exception $error) {
+            watchdog_exception(
+                'Remote API Connection',
+                $error, 
+                t('Unknown Error: @error', ['@error' => $error->getMessage()])
+            );
+            return $error;
+        }
     }
 }

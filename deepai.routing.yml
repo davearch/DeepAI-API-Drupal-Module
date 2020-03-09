@@ -7,3 +7,13 @@ deepai.admin_settings_form:
     _permission: 'access administration pages'
   options:
     _admin_route: TRUE
+
+deepai.generate_node_form:
+  path: '/admin/structure/deepai/generate'
+  defaults:
+    _form: Drupal\deepai\Form\GenerateForm
+    _title: 'DeepAI Generate'
+  requirements:
+    _permission: 'access administrative pages'
+  options:
+    _admin_route: TRUE
