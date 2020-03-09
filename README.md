@@ -5,10 +5,11 @@ Drupal Module for Node Generation with the [DeepAI Text Generation API](https://
 
 Author: **David Archuleta Jr.** <darchuletajr@gmail.com>
 
-So I made a DeepAI Client Service that uses the Guzzle http module (now in Core) to send the requests.
-I also made a Simple Configuration Object for the Module Administration Settings.
+This module attempts to request the DeepAI Text-Generator API and create Article nodes with their body fields full of AI generated text. The module implements a DeepAI Service wrapper for the Guzzle Client. It also has an admin settings form for the api-key and the 'base string', and a 'generate node form' for actually generating the nodes.
 
 TODO:
-* Make another Form for actually creating the node objects under either the content or structure administrative menus.
 * it would be nice to be able to choose which content type we generate but I'll hardcode Article for now.
 * it would also be great to define a new Plugin Type for this module, where we could choose and save different 'generate' plugins.
+* Need to rework the actual request because the text generation takes forever.
+* If you try this out, make sure to validate your email with the api or it will deny you (you need to register to get your api key).
+* Write tests
